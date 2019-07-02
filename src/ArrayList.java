@@ -121,6 +121,25 @@ public class ArrayList<T> {
     }
 
     /**
+     * Додає всі елементи заданого списку в список
+     * на задану позицію
+     * @param list список, елементи якого додаються
+     * @param index позиція в списку, на яку додається елемент
+     * @throws IndexOutOfBoundsException якщо значення {@param index}
+     * не менше за розмір списку, або менше за 0
+     */
+
+    public void addAll(ArrayList<T> list, int index){
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
+        ensureCapacity(size + list.size);
+        System.arraycopy(elementData, index, elementData, index + list.size, size - index);
+        System.arraycopy(list.elementData, 0, elementData, index, list.size);
+        size+= list.size;
+    }
+
+    /**
      * Додає заданий елемент в кінець списку
      * @param element елемент, який додається
      */
@@ -144,6 +163,23 @@ public class ArrayList<T> {
         }
 
         return elementData[index];
+    }
+
+    /**
+     * Перевіряє чи список список містить заданий елемент
+     * @param element елемент, наявність якого потрібно знайти
+     * @return логічне {@code true} якщо елемент наявний списку,
+     * {@code false} - інакше
+     */
+
+    public boolean contains(T element){
+        for (int i = 0; i < size; i++) {
+            if(elementData[i].equals(element)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
